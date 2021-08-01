@@ -103,7 +103,7 @@ namespace SetYourTone.Services
                 }
                 for (int k = inputLine.GetLength(0) - _RuleParameters.RightBorder.Length; k < inputLine.GetLength(0); k++)
                 {
-                    outputLine[k] = _RuleParameters.LeftBorder[k - inputLine.GetLength(0) + _RuleParameters.RightBorder.Length];
+                    outputLine[k] = _RuleParameters.RightBorder[k - inputLine.GetLength(0) + _RuleParameters.RightBorder.Length];
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace SetYourTone.Services
         {
             XLeft = XLeft + finalTopLayerCenter;
             XRight = XRight + finalTopLayerCenter;
-            //Размеры кадра
+            //Размеры кадра.
             int Xlength = XRight - XLeft + 1;
             int Ylength = YFoot - YTop + 1;
             //Строки для вычисления, second на основе first по правилу.
