@@ -70,7 +70,7 @@ namespace SetYourTone.Controllers
             ViewData["ColorsDictionary"] = Colors;
             ViewData["TriggersDictionary"] = Triggers;
             FramerLineByLine Base = new FramerLineByLine(userRule, Triggers, RowsState.Frame);
-            ViewData["Message"] = Base.frame;
+            ViewData["Frame"] = Base.frame;
             return View("UserPage");
         }
 
@@ -104,12 +104,23 @@ namespace SetYourTone.Controllers
 
             CurrentEdit.Deletion(Triggers, ColorsDictionary, RowsState);
 
+            ViewData["LimitationMode"] = RowsState.Limitation;
             ViewData["RowsState.Colors"] = RowsState.Colors;
             ViewData["ColorsDictionary"] = ColorsDictionary;
             ViewData["RowsState.Triggers"] = RowsState.Triggers;
             ViewData["TriggersDictionary"] = Triggers;
-            FramerLineByLine BaseLineByLine = new FramerLineByLine(userRule, Triggers, RowsState.Frame);
-            ViewData["Message"] = BaseLineByLine.frame;
+
+            if (String.Compare(RowsState.Limitation, "On")!=0)
+            {
+                FramerLineByLine BaseLineByLine = new FramerLineByLine(userRule, Triggers, RowsState.Frame);
+                ViewData["Frame"] = BaseLineByLine.frame;
+            }
+            else
+            {
+                SpaceLimiter BaseLineByLine = new SpaceLimiter(userRule, Triggers, RowsState.Frame);
+                ViewData["Frame"] = BaseLineByLine.frame;
+            }
+
             return View("UserPage");
         }
 
