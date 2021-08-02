@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using SetYourTone.Models;
-using System.Text;
 
 namespace SetYourTone.Services
 {
-    public class FramerLineByLine : Ruler
+    public class EndlessTopLayer : Ruler
     {
         protected int XLeft;
         protected int YTop;
         protected int XRight;
         protected int YFoot;
-        public FramerLineByLine(RuleModel RuleParameters, Dictionary<string, char> inputTriggers, string currentUserFrame)
+        public EndlessTopLayer(RuleModel RuleParameters, Dictionary<string, char> inputTriggers, string currentUserFrame)
             : base (RuleParameters, inputTriggers)
         {
             string[] splittedFrame = currentUserFrame.Split(';');
