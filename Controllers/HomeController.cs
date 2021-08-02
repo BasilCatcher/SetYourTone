@@ -69,7 +69,8 @@ namespace SetYourTone.Controllers
 
             ViewData["ColorsDictionary"] = Colors;
             ViewData["TriggersDictionary"] = Triggers;
-            FramerLineByLine Base = new FramerLineByLine(userRule, Triggers, RowsState.Frame);
+            //Класс, заполняющий массив кадра на основе параметров правила, триггеров и координат.
+            EndlessTopLayer Base = new EndlessTopLayer(userRule, Triggers, RowsState.Frame);
             ViewData["Frame"] = Base.frame;
             return View("UserPage");
         }
@@ -104,21 +105,40 @@ namespace SetYourTone.Controllers
 
             CurrentEdit.Deletion(Triggers, ColorsDictionary, RowsState);
 
+            ViewData["VerbatimMode"] = RowsState.Verbatim;
             ViewData["LimitationMode"] = RowsState.Limitation;
             ViewData["RowsState.Colors"] = RowsState.Colors;
             ViewData["ColorsDictionary"] = ColorsDictionary;
             ViewData["RowsState.Triggers"] = RowsState.Triggers;
             ViewData["TriggersDictionary"] = Triggers;
 
+            //Выбор нужного класса на основе "флажков" RowsState.Limitation и RowsState.Verbatim
+            //Классы, заполняющие массив кадра на основе параметров правила, триггеров и координат.
             if (String.Compare(RowsState.Limitation, "On")!=0)
             {
-                FramerLineByLine BaseLineByLine = new FramerLineByLine(userRule, Triggers, RowsState.Frame);
-                ViewData["Frame"] = BaseLineByLine.frame;
+                if (String.Compare(RowsState.Verbatim, "On") != 0)
+                {
+                    EndlessTopLayer BaseLineByLine = new EndlessTopLayer(userRule, Triggers, RowsState.Frame);
+                    ViewData["Frame"] = BaseLineByLine.frame;
+                }
+                else
+                {
+                    VerbatimEndlessTopLayer BaseLineByLine = new VerbatimEndlessTopLayer(userRule, Triggers, RowsState.Frame);
+                    ViewData["Frame"] = BaseLineByLine.frame;
+                }
             }
             else
             {
-                SpaceLimiter BaseLineByLine = new SpaceLimiter(userRule, Triggers, RowsState.Frame);
-                ViewData["Frame"] = BaseLineByLine.frame;
+                if (String.Compare(RowsState.Verbatim, "On") != 0)
+                {
+                    SpaceLimiter BaseLineByLine = new SpaceLimiter(userRule, Triggers, RowsState.Frame);
+                    ViewData["Frame"] = BaseLineByLine.frame;
+                }
+                else
+                {
+                    VerbatimSpaceLimiter BaseLineByLine = new VerbatimSpaceLimiter(userRule, Triggers, RowsState.Frame);
+                    ViewData["Frame"] = BaseLineByLine.frame;
+                }
             }
 
             return View("UserPage");

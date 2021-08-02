@@ -3,12 +3,12 @@
     char[,] dat = (char[,])ViewData["Frame"];
     Dictionary<string, char> Triggers = (Dictionary<string, char>)ViewData["TriggersDictionary"];
     Dictionary<char, string> colors = (Dictionary<char, string>)ViewData["ColorsDictionary"];
- }
+}
 
 <div>
     <table width="100%" cellpadding="5">
         <tr>
-            <th width="80%">
+            <td width="80%">
                 @{
                     int width = 1500;
                     int height = 700;
@@ -42,13 +42,9 @@
                         }
                     }
                 </svg>
-            </th>
+            </td>
             <th width="20%">
 
-                <p>Важно соблюдать следующие условия:</p>
-                <p>Длина триггеров в строке триггеров должна быть одинаковой и равной заданной выше.</p>
-                <p>Триггеры должны быть уникальны и заданы двоичным кодом. Количество элементов в строке с триггерами - чётное.</p>
-                <p>В строке кадра х левый меньше х правого, а y верхний меньше y нижнего, оба y >= 0</p>
                 <form method="post" asp-action="UserPage">
 
                     <label>Символ по умолчанию</label><br />
@@ -100,13 +96,23 @@
                     <input type="text" name="CurrentEdit.ColorsRGBToAdd" size="15" /><br />
                     <input type="hidden" name="RowsState.Colors" size="5" value="@ViewData["RowsState.Colors"]" />
                     @{
-                        if (String.Compare((string)ViewData["LimitationMode"],"On")==0)
-                        { 
-                        <p><input type="checkbox" name="RowsState.Limitation" value="On" checked/> Режим ограниченного пространства</p>
+                        if (String.Compare((string)ViewData["LimitationMode"], "On") == 0)
+                        {
+                            <p><input type="checkbox" name="RowsState.Limitation" value="On" checked /> Режим ограниченного пространства</p>
                         }
                         else
                         {
-                        <p><input type="checkbox" name="RowsState.Limitation" value="On" /> Режим ограниченного пространства</p>
+                            <p><input type="checkbox" name="RowsState.Limitation" value="On" /> Режим ограниченного пространства</p>
+                        }
+                    }
+                    @{
+                        if (String.Compare((string)ViewData["VerbatimMode"], "On") == 0)
+                        {
+                            <p><input type="checkbox" name="RowsState.Verbatim" value="On" checked /> Режим буквальных триггеров</p>
+                        }
+                        else
+                        {
+                            <p><input type="checkbox" name="RowsState.Verbatim" value="On" /> Режим буквальных триггеров</p>
                         }
                     }
                     <input type="submit" value="Отправить" />
@@ -117,11 +123,11 @@
         </tr>
     </table>
     <br />
-    <table width="1000">
+    <table width="100%">
         <tr>
             <th width="500">
                 <strong>
-                    Текущие триггеры <br/>
+                    Текущие триггеры <br />
                     @{
                         foreach (string key in Triggers.Keys)
                         {
@@ -138,13 +144,26 @@
                     @{
                         foreach (char key in colors.Keys)
                         {
-                            <label >
+                            <label>
                                 <span style="color:rgb(@colors[key]);">█</span> @key  @colors[key]
                             </label>
                             <br />
                         }
                     }
                 </strong>
+            </th>
+            <th>
+
+            </th>
+            <th width="500" align="center">
+                <p>
+                    <strong>
+                        Важно соблюдать следующие условия:</br>
+                        Длина триггеров в строке триггеров должна быть одинаковой и равной заданной выше.</br>
+                        Триггеры должны быть уникальны и заданы бинарно или символьно согласно режиму триггеров.</br>
+                        В строке кадра х левый меньше х правого, а y верхний меньше y нижнего, оба y >= 0.</br>
+                    </strong>
+                </p>
             </th>
         </tr>
     </table>

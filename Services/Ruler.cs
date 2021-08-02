@@ -68,7 +68,7 @@ namespace SetYourTone.Services
             }
         }
         //Функция для получения внутренней строки на основе предыдущей и присоединения границ.
-        protected void LineCalculator(in char[] inputLine, out char[] outputLine)
+        protected virtual void LineCalculator(in char[] inputLine, out char[] outputLine)
         {
             outputLine = new char[inputLine.Length];
             StringBuilder triggerLineSculpt = new StringBuilder(_RuleParameters.Length);
