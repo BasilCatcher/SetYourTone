@@ -114,9 +114,9 @@ namespace SetYourTone.Controllers
 
             //Выбор нужного класса на основе "флажков" RowsState.Limitation и RowsState.Verbatim
             //Классы, заполняющие массив кадра на основе параметров правила, триггеров и координат.
-            if (String.Compare(RowsState.Limitation, "On")!=0)
+            if (RowsState.Limitation != "On")
             {
-                if (String.Compare(RowsState.Verbatim, "On") != 0)
+                if (RowsState.Verbatim != "On")
                 {
                     EndlessTopLayer BaseLineByLine = new EndlessTopLayer(userRule, Triggers, RowsState.Frame);
                     ViewData["Frame"] = BaseLineByLine.frame;
@@ -129,7 +129,7 @@ namespace SetYourTone.Controllers
             }
             else
             {
-                if (String.Compare(RowsState.Verbatim, "On") != 0)
+                if (RowsState.Verbatim != "On")
                 {
                     SpaceLimiter BaseLineByLine = new SpaceLimiter(userRule, Triggers, RowsState.Frame);
                     ViewData["Frame"] = BaseLineByLine.frame;
